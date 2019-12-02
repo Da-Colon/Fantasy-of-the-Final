@@ -97,11 +97,11 @@ app.get('/game.html', function (req, res) {
   res.sendFile(__dirname + '/public/game.html');
 });
  
-// app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
  
-// app.get('/', function (req, res) {
-//   res.sendFile(__dirname + '/');
-// });
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + '/');
+});
  
 // main routes
 app.use('/', routes);
