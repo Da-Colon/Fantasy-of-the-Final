@@ -9,11 +9,12 @@ const LoginForm = () => {
     try {
       await Axios.post("http://localhost:3000/login", user);
       // Redirect Into GAME
+      window.location.replace('/game')
     } catch {
       window.alert(
         "Sorry, There Was An Error While Logging In, Please Try Again"
       );
-      window.location.reload();
+      // window.location.reload();
     }
   };
 
