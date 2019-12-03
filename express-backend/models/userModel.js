@@ -4,6 +4,9 @@ const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
+  id: {
+
+  },
   email: {
     type: String,
     required: true,
@@ -17,15 +20,47 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  highScore: {
+  characterId: {
     type: Number,
-    default: 0
+    required: true
   },
   resetToken: {
     type: String
   },
   resetTokenExp: {
     type: Date
+  },
+  maxHp: {
+    type: Number,
+    default: 100
+  },
+  currentHp: {
+    type: Number,
+    default: 100
+  },
+  maxMp: {
+    type: Number,
+    default: 20
+  },
+  currentMp: {
+    type: Number,
+    default: 20,
+  },
+  attackPower: {
+    type: Number,
+    default: 5
+  },
+  defensePower: {
+    type: Number,
+    default: 3
+  },
+  agility: {
+    type: Number,
+    default: 2
+  },
+  luck: {
+    type: Number,
+    default: 1
   }
 });
 
