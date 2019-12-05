@@ -4,9 +4,6 @@ export const GameContainer = styled.div`
 `
 
 export const Main = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
   width: 100%;
 `
 
@@ -28,5 +25,13 @@ export const MessageList = styled.ul`
   margin: 0;
   overflow-y: scroll;
   padding: 10px 20px 10px 20px;
+`
+
+export const CharacterStats = styled.div`
+  position: relative;
+  z-index: 2;
+  width: 250px;
+  height: 100px;
+  background-color: rgba(0,0,0,0.2)
 `
 

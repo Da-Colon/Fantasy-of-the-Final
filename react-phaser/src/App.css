@@ -48,3 +48,10 @@ body {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
+
+canvas {
+  margin: 10px;
+  position: absolute;
+  border: 10px solid black;
+  box-shadow: 5px 10px 5px lightgrey;
+}
