@@ -48,7 +48,6 @@ app.use(cors(corsOptions));
 const players = {};
  
 io.on('connection', function (socket) {
-  console.log(socket)
   console.log('a user connected: ', socket.id);
   // create a new player and add it to our players object
   players[socket.id] = {

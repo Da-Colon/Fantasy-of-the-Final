@@ -15,7 +15,6 @@ const SignupForm = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      console.log(typeof(newUser.avatar))
       await Axios.post("http://localhost:3000/signup", newUser);
       window.location.replace("/");
     } catch {
@@ -74,7 +73,7 @@ const SignupForm = () => {
           aria-label="Avatar"
           value={1}
           required/>
-        <img src={locke} />
+        <img alt="Locke Sprite" src={locke} />
         <Input
           type="radio"
           onChange={handleInputChange}
@@ -82,7 +81,7 @@ const SignupForm = () => {
           aria-label="Avatar"
           value="2"
         required />
-        <img src={celes} />
+        <img alt="Celes Sprite" src={celes} />
         <Input
           type="radio"
           onChange={handleInputChange}
@@ -90,7 +89,7 @@ const SignupForm = () => {
           aria-label="Avatar"
           value="3"
           required/>
-        <img src={cyan} />
+        <img alt="Cyan Sprite" src={cyan} />
         <Input
           type="radio"
           onChange={handleInputChange}
@@ -98,7 +97,7 @@ const SignupForm = () => {
           aria-label="Avatar"
           value="4"
           required/>
-        <img src={terra} />
+        <img alt="Terra Sprite" src={terra} />
         <Input
           type="radio"
           onChange={handleInputChange}
@@ -106,7 +105,7 @@ const SignupForm = () => {
           aria-label="Avatar"
           value="5"
           required/>
-        <img src={relm} />
+        <img alt="Relm Sprite" src={relm} />
       </Label>
       <Button type="submit">Create Your Character</Button>
     </Form>

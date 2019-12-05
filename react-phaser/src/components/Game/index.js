@@ -1,13 +1,21 @@
-import React from "react";
+import React, {useState} from "react";
 import Phaser from "phaser";
-
-
-import spriteSheet from "./assets/Maps/ff6-tiles.png";
-import jsonMap from "./assets/Maps/01-start.json";
 import io from "socket.io-client";
-import mog from './assets/PlayerSprites/Mog.png'
 import store from '../../store'
 
+// import map assets
+import spriteSheet from "./assets/Maps/ff6-tiles.png";
+import jsonMap from "./assets/Maps/01-start.json";
+
+// import player sprites
+import mog from './assets/PlayerSprites/Mog.png'
+import celes from './assets/PlayerSprites/Celes.png'
+import cyan from './assets/PlayerSprites/Cyan.png'
+import locke from './assets/PlayerSprites/Locke.png'
+import relm from './assets/PlayerSprites/Relm.png'
+import terra from './assets/PlayerSprites/Terra.png'
+
+// Import Styles
 import {
   GameContainer,
   Main,
@@ -17,10 +25,11 @@ import {
 } from "./styles";
 
 
-
-
 export default function Game() {
-console.log(store.getState())
+
+const userInfo = store.getState().user
+const [user, setUser] = useState(userInfo)
+
   class BootScene extends Phaser.Scene {
     constructor() {
       super({
@@ -34,7 +43,23 @@ console.log(store.getState())
       this.load.image("tiles", spriteSheet);
       this.load.tilemapTiledJSON("map", jsonMap);
       // Loads Players
-      this.textures.addBase64("player", mog);
+      function setPlayerSprite() {
+        switch (user.avatar) {
+          case '1':
+            return locke
+          case '2':
+            return celes
+          case '3':
+            return cyan
+          case '4':
+            return terra
+          case '5':
+            return relm
+            default:
+              return console.log("ERROR: You must have be logged in")
+        }
+      }
+      this.textures.addBase64("player", setPlayerSprite());
     }
     create() {
       this.scene.start("WorldScene");
@@ -122,7 +147,6 @@ console.log(store.getState())
 
     createPlayer(playerInfo) {
       // our player sprite created through the physics system
-      console.log("CREATE PLAYER",playerInfo);
       this.player = this.add.sprite(0, 0, "player");
 
       this.container = this.add.container(playerInfo.x, playerInfo.y);
@@ -230,7 +254,6 @@ console.log(store.getState())
     scene: [BootScene, WorldScene]
   };
   var game = new Phaser.Game(config);
-
   return (
     <Main>
       <GameContainer id="content"></GameContainer>
