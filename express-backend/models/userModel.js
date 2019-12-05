@@ -30,6 +30,14 @@ const UserSchema = new Schema({
   resetTokenExp: {
     type: Date
   },
+  level: {
+    type: Number,
+    default: 1,
+  },
+  experience: {
+    type: Number,
+    default: 0
+  },
   maxHp: {
     type: Number,
     default: 100

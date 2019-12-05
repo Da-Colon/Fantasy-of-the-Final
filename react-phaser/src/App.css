@@ -21,7 +21,10 @@ body {
   justify-content: center;
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #f5f5f5;
+  max-width: 1440px;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin: 0 auto;
+  max-height: 1000px;
 }
 
 .form-signin {
@@ -50,7 +53,7 @@ body {
 }
 
 canvas {
-  margin: 10px;
+  margin: 10px auto;
   position: absolute;
   border: 10px solid black;
   box-shadow: 5px 10px 5px lightgrey;
