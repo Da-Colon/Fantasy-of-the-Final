@@ -20,8 +20,8 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  characterId: {
-    type: Number,
+  avatar: {
+    type: String,
     required: true
   },
   resetToken: {

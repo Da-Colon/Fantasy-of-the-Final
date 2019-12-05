@@ -1,6 +1,6 @@
-import Axios from 'axios'
+import axios from 'axios'
 
-export default function getCookie(cname) {
+function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
   var ca = decodedCookie.split(';');
@@ -15,3 +15,18 @@ export default function getCookie(cname) {
   }
   return "";
 }
+
+setInterval(function() {
+  console.log("HELLO")
+  axios.request('http://localhost:3000/token', {
+    method: 'post',
+    data: {
+      refreshToken: getCookie('refreshJwt')
+    },
+    success: function(data) {},
+    error: function(xhr) {
+      window.alert(JSON.stringify(xhr));
+      window.location.replace('/index.html');
+    }
+  })
+}, 10000);

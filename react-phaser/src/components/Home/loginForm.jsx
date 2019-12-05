@@ -1,34 +1,49 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
+import store from "../../store";
 import Axios from "axios";
+import {connect} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 
-const LoginForm = () => {
-  const [user, setUser] = useState({ email: "", password: "" });
+const LoginForm = (props) => {
+  let history = useHistory();
 
-  const handleSubmit = async e => {
+  const [login, setLogin] = useState({ email: "", password: "" });
+
+
+  const updateUser = (data) =>{
+    store.dispatch({
+      type: 'user logged in',
+      payload: data
+    })
+  }
+
+
+
+  const handleSubmit = async (e,props) => {
     e.preventDefault();
     try {
-      await Axios.post("http://localhost:3000/login", user);
-      // Redirect Into GAME
-      window.location.replace('/game')
+      const response = await Axios.post("http://localhost:3000/login", login);
+      const data = await response.data.body;
+      await updateUser(data)
+      history.push('/game')
+
     } catch {
       window.alert(
         "Sorry, There Was An Error While Logging In, Please Try Again"
-      );
-      // window.location.reload();
-    }
-  };
-
+        );
+        // window.location.reload();
+      }
+    };
+    
+    
   const handleInputChange = e => {
     e.preventDefault();
     const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+    setLogin({ ...login, [name]: value });
   };
 
   return (
-    <form 
-    onSubmit={handleSubmit}
-    className="form-signin"
-    >
+    <form onSubmit={handleSubmit} className="form-signin">
       <h1>Please Sign In</h1>
       <h2>Email Adress</h2>
       <input
@@ -54,4 +69,10 @@ const LoginForm = () => {
 };
 
 
-export default LoginForm;
+function mapStateToProps(state) {
+  return {
+    ...state.user,
+  }
+}
+
+export default connect(mapStateToProps)(LoginForm)

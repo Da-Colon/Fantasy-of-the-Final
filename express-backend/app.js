@@ -48,6 +48,7 @@ app.use(cors(corsOptions));
 const players = {};
  
 io.on('connection', function (socket) {
+  console.log(socket)
   console.log('a user connected: ', socket.id);
   // create a new player and add it to our players object
   players[socket.id] = {
@@ -88,20 +89,20 @@ app.use(cookieParser());
 require('./auth/auth');
  
 
-app.get('/game.html', passport.authenticate('jwt', { session : false }), function (req, res) {
-  res.sendFile(__dirname + '/public/game.html');
-});
+// app.get('/game.html', passport.authenticate('jwt', { session : false }), function (req, res) {
+//   res.sendFile(__dirname + '/public/game.html');
+// });
 
  
-app.get('/game.html', function (req, res) {
-  res.sendFile(__dirname + '/public/game.html');
-});
+// app.get('/game.html', function (req, res) {
+//   res.sendFile(__dirname + '/public/game.html');
+// });
  
-app.use(express.static(__dirname + '/public'));
+// app.use(express.static(__dirname + '/public'));
  
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/');
-});
+// app.get('/', function (req, res) {
+//   res.sendFile(__dirname + '/');
+// });
  
 // main routes
 app.use('/', routes);
