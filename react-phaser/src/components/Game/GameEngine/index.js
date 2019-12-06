@@ -134,6 +134,7 @@ export default function GameEngine() {
       let tiles = this.map.addTilesetImage("ff6-tiles", "tiles", 32, 32);
 
       this.map.createStaticLayer("ground", tiles, 0, 0);
+      this.map.createStaticLayer("walkable", tiles, 0, 0);
       this.house = this.map.createStaticLayer("house", tiles, 0, 0).setCollisionByExclusion([-1]);
       this.treeTops = this.map.createStaticLayer("tree tops", tiles, 0, 0).setDepth(2);
 
