@@ -53,8 +53,14 @@ export default function GameEngine() {
             return console.log("ERROR: You must have be logged in");
         }
       }
-      this.textures.addBase64("player", setPlayerAvatar());
 
+      this.textures.addBase64("player", setPlayerAvatar());
+      this.textures.addBase64("locke", locke)
+      this.textures.addBase64("celes", celes)
+      this.textures.addBase64("cyan", cyan)
+      this.textures.addBase64("terra", terra)
+      this.textures.addBase64("relm", relm)
+      this.textures.addBase64("mog", mog)
       this.load.image("boss", atma);
     }
     create() {
@@ -71,8 +77,9 @@ export default function GameEngine() {
     create() {
       const endpoint = "http://localhost:3000";
 
-      this.socket = io(endpoint);
+      this.socket = io(endpoint, { query: user });
       this.otherPlayers = this.physics.add.group();
+      this.otherPlayersName = this.physics.add.group();
 
       this.createMap();
 
@@ -89,6 +96,8 @@ export default function GameEngine() {
                 this.createPlayer(players[id]);
               } else {
                 this.addOtherPlayers(players[id]);
+                console.log("THIS", players)
+                
               }
             }.bind(this)
           );
@@ -116,6 +125,13 @@ export default function GameEngine() {
       this.socket.on(
         "playerMoved",
         function(playerInfo) {
+          this.otherPlayersName.getChildren().forEach(function(player){
+            console.log(player,"WHWHAHD")
+            if(playerInfo.playerId === player.playerId) {
+              player.flipX = playerInfo.flipX;
+              player.setPosition(playerInfo.x -24, playerInfo.y -40);
+            }
+          })
           this.otherPlayers.getChildren().forEach(function(player) {
             if (playerInfo.playerId === player.playerId) {
               player.flipX = playerInfo.flipX;
@@ -135,10 +151,13 @@ export default function GameEngine() {
 
       this.map.createStaticLayer("ground", tiles, 0, 0);
       this.map.createStaticLayer("walkable", tiles, 0, 0);
-      this.house = this.map.createStaticLayer("house", tiles, 0, 0).setCollisionByExclusion([-1]);
-      this.treeTops = this.map.createStaticLayer("tree tops", tiles, 0, 0).setDepth(2);
+      this.house = this.map
+        .createStaticLayer("house", tiles, 0, 0)
+        .setCollisionByExclusion([-1]);
+      this.treeTops = this.map
+        .createStaticLayer("tree tops", tiles, 0, 0)
+        .setDepth(2);
 
-      
       this.physics.world.bounds.width = this.map.widthInPixels;
       this.physics.world.bounds.height = this.map.heightInPixels;
     }
@@ -146,29 +165,63 @@ export default function GameEngine() {
     createPlayer(playerInfo) {
       // our player sprite created through the physics system
       this.player = this.add.sprite(0, 0, "player");
-
+      // create player container
       this.container = this.add.container(playerInfo.x, playerInfo.y);
       this.container.setSize(32, 32);
       this.physics.world.enable(this.container);
       this.container.add(this.player);
+
+      // create player name container
+      let username = user.name;
+      this.text = this.add.text(-24, -40, username);
+      this.container.add(this.text)
 
       this.updateCamera();
 
       this.container.body.setCollideWorldBounds(true);
       this.physics.add.collider(this.container, this.spawns);
       this.physics.add.collider(this.container, this.house);
+      
+    }
+
+    getAvatar(avatar) {
+      switch (avatar) {
+        case "1":
+          return "locke";
+        case "2":
+          return "celes";
+        case "3":
+          return "cyan";
+        case "4":
+          return "terra";
+        case "5":
+          return "relm";
+        case "admin":
+          return "mog";
+        default:
+          return console.log("ERROR: You must have be logged in");
+      }
     }
 
     addOtherPlayers(playerInfo) {
       const otherPlayer = this.add.sprite(
         playerInfo.x,
         playerInfo.y,
-        "player",
+        this.getAvatar(playerInfo.user.avatar),
         9
       );
-      otherPlayer.setTint(Math.random() * 0xffffff);
+      
       otherPlayer.playerId = playerInfo.playerId;
       this.otherPlayers.add(otherPlayer);
+
+      let otherName = playerInfo.user.name;
+      this.name = this.add.text(0, 0, otherName);
+      this.otherPlayerNameCtn= this.add.container(playerInfo.x -24, playerInfo.y -40);
+      this.otherPlayerNameCtn.playerId = playerInfo.playerId
+      this.otherPlayerNameCtn.setSize(16, 8);
+      this.physics.world.enable(this.otherPlayerNameCtn);
+      this.otherPlayerNameCtn.add(this.name);
+      this.otherPlayersName.add(this.otherPlayerNameCtn);
     }
 
     updateCamera() {
@@ -258,13 +311,11 @@ export default function GameEngine() {
         if (!occupied) validLocation = true;
       }
       return { x, y };
-
     }
 
     update() {
       if (this.container) {
         this.container.body.setVelocity(0);
-
         // Horizontal movement
         if (this.cursors.left.isDown) {
           this.container.body.setVelocityX(-100);

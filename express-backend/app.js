@@ -49,13 +49,16 @@ const players = {};
  
 io.on('connection', function (socket) {
   console.log('a user connected: ', socket.id);
+  userInfo = socket.handshake.query
   // create a new player and add it to our players object
   players[socket.id] = {
     flipX: false,
     x: Math.floor(Math.random() * 400) + 50,
     y: Math.floor(Math.random() * 500) + 50,
-    playerId: socket.id
+    playerId: socket.id,
+    user: userInfo
   };
+
   // send the players object to the new player
   socket.emit('currentPlayers', players);
   // update all other players of the new player
