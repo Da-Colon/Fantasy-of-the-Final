@@ -6,6 +6,8 @@ import {useHistory} from 'react-router-dom'
 import { Form, Label, Input, Button } from "./styles";
 
 const LoginForm = (props) => {
+  // const endpoint = "http://localhost:3000";
+const endpoint = 'http://192.168.0.123:3000'
   let history = useHistory();
 
   const [login, setLogin] = useState({ email: "", password: "" });
@@ -23,7 +25,7 @@ const LoginForm = (props) => {
   const handleSubmit = async (e,props) => {
     e.preventDefault();
     try {
-      const response = await Axios.post("http://localhost:3000/login", login);
+      const response = await Axios.post(`${endpoint}/login`, login);
       const data = await response.data.body;
       await updateUser(data)
       history.push('/game')

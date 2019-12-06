@@ -11,12 +11,14 @@ import celes from './playerSprites/Celes.gif'
 
 
 const SignupForm = () => {
+  // const endpoint = "http://localhost:3000";
+  const endpoint = 'http://192.168.0.123:3000'
   const [newUser, setNewUser] = useState({ email: "", password: "", name: "" , avatar: ''});
 
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await Axios.post("http://localhost:3000/signup", newUser);
+      await Axios.post(`${endpoint}/signup`, newUser);
       window.location.replace("/");
     } catch {
       window.alert(

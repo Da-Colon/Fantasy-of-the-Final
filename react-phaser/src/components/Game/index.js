@@ -15,11 +15,14 @@ import terraPicture from "./assets/AvatarPicture/Terra.gif";
 import {Main, CharacterStats, AvatarPicture, UList, Stat, Label, Logout } from "./styles";
 
 export default function Game() {
+// const endpoint = "http://localhost:3000";
+const endpoint = 'http://192.168.0.123:3000';
+
   const userInfo = store.getState().user;
   const [user] = useState(userInfo);
 
   const handleLogout = async (e) => {
-    const logout = await Axios.post('http://localhost:3000/logout')
+    const logout = await Axios.post(`${endpoint}/logout`)
     console.log("logout", logout)
     store.dispatch({
       type: 'user logged out'

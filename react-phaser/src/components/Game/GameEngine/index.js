@@ -55,12 +55,12 @@ export default function GameEngine() {
       }
 
       this.textures.addBase64("player", setPlayerAvatar());
-      this.textures.addBase64("locke", locke)
-      this.textures.addBase64("celes", celes)
-      this.textures.addBase64("cyan", cyan)
-      this.textures.addBase64("terra", terra)
-      this.textures.addBase64("relm", relm)
-      this.textures.addBase64("mog", mog)
+      this.textures.addBase64("locke", locke);
+      this.textures.addBase64("celes", celes);
+      this.textures.addBase64("cyan", cyan);
+      this.textures.addBase64("terra", terra);
+      this.textures.addBase64("relm", relm);
+      this.textures.addBase64("mog", mog);
       this.load.image("boss", atma);
     }
     create() {
@@ -75,7 +75,8 @@ export default function GameEngine() {
       });
     }
     create() {
-      const endpoint = "http://localhost:3000";
+      // const endpoint = "http://localhost:3000";
+      const endpoint = 'http://192.168.0.123:3000';
 
       this.socket = io(endpoint, { query: user });
       this.otherPlayers = this.physics.add.group();
@@ -96,8 +97,7 @@ export default function GameEngine() {
                 this.createPlayer(players[id]);
               } else {
                 this.addOtherPlayers(players[id]);
-                console.log("THIS", players)
-                
+                console.log("THIS", players);
               }
             }.bind(this)
           );
@@ -125,12 +125,12 @@ export default function GameEngine() {
       this.socket.on(
         "playerMoved",
         function(playerInfo) {
-          this.otherPlayersName.getChildren().forEach(function(player){
-            if(playerInfo.playerId === player.playerId) {
+          this.otherPlayersName.getChildren().forEach(function(player) {
+            if (playerInfo.playerId === player.playerId) {
               player.flipX = playerInfo.flipX;
-              player.setPosition(playerInfo.x -24, playerInfo.y -40);
+              player.setPosition(playerInfo.x - 24, playerInfo.y - 40);
             }
-          })
+          });
           this.otherPlayers.getChildren().forEach(function(player) {
             if (playerInfo.playerId === player.playerId) {
               player.flipX = playerInfo.flipX;
@@ -173,14 +173,13 @@ export default function GameEngine() {
       // create player name container
       let username = user.name;
       this.text = this.add.text(-24, -40, username);
-      this.container.add(this.text)
+      this.container.add(this.text);
 
       this.updateCamera();
 
       this.container.body.setCollideWorldBounds(true);
       this.physics.add.collider(this.container, this.spawns);
       this.physics.add.collider(this.container, this.house);
-      
     }
 
     getAvatar(avatar) {
@@ -209,14 +208,17 @@ export default function GameEngine() {
         this.getAvatar(playerInfo.user.avatar),
         9
       );
-      
+
       otherPlayer.playerId = playerInfo.playerId;
       this.otherPlayers.add(otherPlayer);
 
       let otherName = playerInfo.user.name;
       this.name = this.add.text(0, 0, otherName);
-      this.otherPlayerNameCtn= this.add.container(playerInfo.x -24, playerInfo.y -40);
-      this.otherPlayerNameCtn.playerId = playerInfo.playerId
+      this.otherPlayerNameCtn = this.add.container(
+        playerInfo.x - 24,
+        playerInfo.y - 40
+      );
+      this.otherPlayerNameCtn.playerId = playerInfo.playerId;
       this.otherPlayerNameCtn.setSize(16, 8);
       this.physics.world.enable(this.otherPlayerNameCtn);
       this.otherPlayerNameCtn.add(this.name);
