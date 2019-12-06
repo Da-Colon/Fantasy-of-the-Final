@@ -126,7 +126,6 @@ export default function GameEngine() {
         "playerMoved",
         function(playerInfo) {
           this.otherPlayersName.getChildren().forEach(function(player){
-            console.log(player,"WHWHAHD")
             if(playerInfo.playerId === player.playerId) {
               player.flipX = playerInfo.flipX;
               player.setPosition(playerInfo.x -24, playerInfo.y -40);
@@ -318,16 +317,16 @@ export default function GameEngine() {
         this.container.body.setVelocity(0);
         // Horizontal movement
         if (this.cursors.left.isDown) {
-          this.container.body.setVelocityX(-100);
+          this.container.body.setVelocityX(-150);
         } else if (this.cursors.right.isDown) {
-          this.container.body.setVelocityX(100);
+          this.container.body.setVelocityX(150);
         }
 
         // Vertical movement
         if (this.cursors.up.isDown) {
-          this.container.body.setVelocityY(-100);
+          this.container.body.setVelocityY(-150);
         } else if (this.cursors.down.isDown) {
-          this.container.body.setVelocityY(100);
+          this.container.body.setVelocityY(150);
         }
 
         // Update the animation last and give left/right animations precedence over up/down animations

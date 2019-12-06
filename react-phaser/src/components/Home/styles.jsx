@@ -5,6 +5,9 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   border: solid;
+  padding: 32px;
+  margin: 16px;
+  box-shadow: 5px 10px 5px lightgrey;
 `
 
 export const Label = styled.label`
@@ -26,5 +29,12 @@ export const Button = styled.button`
   font-weight: 500;
   background-color: lightblue;
   font-size: 150%;
+  margin: 16px;
+`
+
+export const Title = styled.h1`
+  text-align: center;
+  font-size: 300%;
+  letter-spacing: 
 `
 

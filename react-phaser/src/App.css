@@ -27,7 +27,7 @@ body {
   max-height: 1000px;
 }
 
-.form-signin {
+/* .form-signin {
   width: 100%;
   max-width: 330px;
   padding: 15px;
@@ -50,7 +50,7 @@ body {
   margin-bottom: 10px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
-}
+} */
 
 canvas {
   margin: 10px auto;

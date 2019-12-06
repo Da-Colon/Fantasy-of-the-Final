@@ -3,6 +3,7 @@ import store from "../../store";
 import Axios from "axios";
 import {connect} from 'react-redux'
 import {useHistory} from 'react-router-dom'
+import { Form, Label, Input, Button } from "./styles";
 
 const LoginForm = (props) => {
   let history = useHistory();
@@ -43,28 +44,28 @@ const LoginForm = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form-signin">
-      <h1>Please Sign In</h1>
-      <h2>Email Adress</h2>
-      <input
+    <Form onSubmit={handleSubmit} className="form-signin">
+      <h1 style={{textAlign:"center"}}>Sign In</h1>
+      <Label>Email Adress:
+      <Input
         className="form-control"
         type="email"
         name="email"
         placeholder="Email Address"
         aria-label="Email Input Field"
         onChange={handleInputChange}
-      />
-      <h2>Password</h2>
-      <input
+      /></Label>
+      <Label>Password:
+      <Input
         className="form-control"
         type="password"
         name="password"
         placeholder="Password"
         aria-label="Password Input Field"
         onChange={handleInputChange}
-      />
-      <button type="submit">LOGIN</button>
-    </form>
+      /></Label>
+      <Button type="submit">LOGIN</Button>
+    </Form>
   );
 };
 

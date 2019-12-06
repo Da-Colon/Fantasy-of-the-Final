@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Axios from "axios";
-import {Form, Label, Input, Button} from './styles'
+import {Link} from 'react-router-dom'
+import {Form, Label, Input, Button} from '../styles'
 
 import cyan from './playerSprites/Cyan.gif'
 import locke from './playerSprites/Locke.gif'
@@ -108,6 +109,8 @@ const SignupForm = () => {
         <img alt="Relm Sprite" src={relm} />
       </Label>
       <Button type="submit">Create Your Character</Button>
+      <Link to='/' style={{fontSize: "150%"}}>Already have an account, Sign in!</Link>
+
     </Form>
   );
 };
